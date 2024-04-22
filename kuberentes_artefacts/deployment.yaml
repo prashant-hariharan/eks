@@ -28,8 +28,7 @@ spec:
                 - expense-service-api
             topologyKey: nodes
       containers:
-  
-        image: 251338463376.dkr.ecr.eu-central-1.amazonaws.com/eks-demo:latest
+      - image: <customer id>.dkr.ecr.eu-central-1.amazonaws.com/eks-demo:latest
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 3
