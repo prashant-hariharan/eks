@@ -200,7 +200,7 @@ Check resources map, Log groups etc.
    
 - Delete Node group
 
-  eksctl delete nodegroup --cluster=<cluster name>  --name=<node group name>
+  eksctl delete nodegroup --cluster=<cluster name>  --name=<node group name> --disable-eviction
 
 - Delete Cluster
 
