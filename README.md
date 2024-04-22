@@ -127,14 +127,14 @@ docker build -t eks-demo .
 - Docker login with ECR (using command line)
   first create a ECR repository .Navigate to the ECR repository and get the path and then  perform docker login:
 
-          aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin <customer id>.dkr.ecr<region>.amazonaws.com/eks-demo
+          aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin <customer id>.dkr.ecr.eu-central-1.amazonaws.com/eks-demo
 
 You can get this comamnd from selecting the ecr repo from AWS console and then clicking on view push command button.
 
 - Docker tag and push
 
-       docker tag eks-demo:latest <customer id>.dkr.ecr<region>.amazonaws.com/eks-demo:latest
-       docker push <customer id>.dkr.ecr<region>.amazonaws.com/eks-demo:latest
+       docker tag eks-demo:latest <customer id>.dkr.ecr.eu-central-1.amazonaws.com/eks-demo:latest
+       docker push <customer id>.dkr.ecr.eu-central-1.amazonaws.com/eks-demo:latest
 
 ## Step-06: Install Kuberentes Artifacts
 
