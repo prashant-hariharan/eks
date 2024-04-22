@@ -146,7 +146,7 @@ kubectl apply -f deployment.yaml
 
 kubectl apply -f loadbalancer-service.yaml
 
-![Screenshot](AWS-EKS-NLB.jpeg)
+![Screenshot](AWS-EKS-NLB.png)
 
 
 
