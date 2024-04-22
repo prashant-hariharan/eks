@@ -159,7 +159,6 @@ kubectl get pods
 
 kubectl get svc
 
-kubectl get ingress
 
 ## Step-07: Container Insights
 
