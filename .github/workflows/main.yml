@@ -49,8 +49,8 @@ jobs:
         ref: main
         path: eks-argocd
         
-    - name: Print folder Structure
-      run: ls -R
+    #- name: Print folder Structure
+     # run: ls -R
      
         
     - name: Install yq
@@ -67,7 +67,9 @@ jobs:
         IMAGE_NAME_FOR_TAG="${{ secrets.DOCKER_USERNAME }}/$IMAGE_NAME"
         DEPLOYMENT_FILE="./eks-argocd/dev/deployment.yaml"
         yq eval ".spec.template.spec.containers[0].image = \"$IMAGE_NAME_FOR_TAG:$COMMIT_ID\"" -i "$DEPLOYMENT_FILE"
-        echo "Image name updated to $NEW_IMAGE_NAME in $DEPLOYMENT_FILE"
+        echo "Image name updated to "$IMAGE_NAME_FOR_TAG:$COMMIT_ID in $DEPLOYMENT_FILE"
+        # Print the content of the updated file
+        cat "$DEPLOYMENT_FILE"
 
 
     - name: Commit and Push Changes
