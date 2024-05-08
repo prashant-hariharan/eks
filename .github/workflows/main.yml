@@ -81,5 +81,5 @@ jobs:
         COMMIT_ID=$(git rev-parse --short HEAD)
         git add ./dev/deployment.yaml
         git commit -m "Update image version to $COMMIT_ID"
-        git push
+        git push https://github.com/prashant-hariharan/eks-argocd.git HEAD:main
     
