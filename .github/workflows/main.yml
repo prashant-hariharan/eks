@@ -48,8 +48,8 @@ jobs:
         ref: main
         path: eks-argocd
         
-    - name: Print folder Structure
-      run: ls -R
+    #- name: Print folder Structure
+      #run: ls -R
      
         
     - name: Install yq
@@ -72,10 +72,11 @@ jobs:
 
     - name: Commit and Push Changes
       run: |
-        git config --local user.email "${{ secrets.EMAIL }}"
-        git config --local user.name "prashant-hariharan"
+        git config --global user.email "${{ secrets.EMAIL }}"
+        git config --global user.name "prashant-hariharan"
         cd eks-argocd
+        COMMIT_ID=$(git rev-parse --short HEAD)
         git add ./dev/deployment.yaml
-        git commit -m "Update image version to $(git rev-parse --short HEAD)"
+        git commit -m "Update image version to $COMMIT_ID"
         git push
     
