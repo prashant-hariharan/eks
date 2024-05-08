@@ -59,9 +59,9 @@ jobs:
       run: |
         IMAGE_NAME="eks-demo" 
         COMMIT_ID=$(git rev-parse --short HEAD)
-        IMAGE_NAME_FOR_TAG="${{ secrets.DOCKER_USERNAME }}/$IMAGE_NAME"
+        IMAGE_NAME_FOR_TAG="${{ secrets.DOCKER_USERNAME }}/$IMAGE_NAME:$COMMIT_ID"
         DEPLOYMENT_FILE="./eks-argocd/dev/deployment.yaml"
-        yq eval '.spec.template.spec.containers[0].image = "'"$NEW_IMAGE_NAME"'"' -i "$DEPLOYMENT_FILE"
+        yq eval '.spec.template.spec.containers[0].image = "'"$IMAGE_NAME_FOR_TAG"'"' -i "$DEPLOYMENT_FILE"
         echo "Image name updated to $IMAGE_NAME_FOR_TAG:$COMMIT_ID in $DEPLOYMENT_FILE"
         cat "$DEPLOYMENT_FILE"
 
