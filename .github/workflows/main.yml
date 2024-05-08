@@ -74,7 +74,7 @@ jobs:
       run: |
         git config --local user.email "${{ secrets.EMAIL }}"
         git config --local user.name "prashant-hariharan"
-        git add path/to/deployment.yaml
+        git add ./eks-argocd/dev/deployment.yaml
         git commit -m "Update image version to $(git rev-parse --short HEAD)"
         git push
     
