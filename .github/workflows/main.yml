@@ -33,6 +33,7 @@ jobs:
         echo ::set-output name=IMAGE_NAME::$IMAGE_NAME
         echo ::set-output name=COMMIT_ID::$COMMIT_ID
 
+
     - name: Push Docker image to Docker Hub
       run: |
         IMAGE_NAME="eks-demo" 
@@ -40,4 +41,36 @@ jobs:
         IMAGE_NAME_FOR_TAG="${{ secrets.DOCKER_USERNAME }}/$IMAGE_NAME" 
         docker tag $IMAGE_NAME $IMAGE_NAME_FOR_TAG:$COMMIT_ID
         docker push $IMAGE_NAME_FOR_TAG:$COMMIT_ID
+
+    - name: Checkout deployment.yaml from another repository
+      uses: actions/checkout@v2
+      with:
+        repository: prashant-hariharan/eks-argocd
+        ref: main
+        path: dev/deployment.yaml
+        
+    - name: Install yq
+      run: |
+        wget https://github.com/mikefarah/yq/releases/download/v4.13.3/yq_linux_amd64.tar.gz -O /tmp/yq.tar.gz
+        tar xvf /tmp/yq.tar.gz -C /tmp
+        sudo mv /tmp/yq_linux_amd64 /usr/local/bin/yq
+        yq --version
+
+    - name: Update Image name 
+      run: |
+        IMAGE_NAME="eks-demo" 
+        COMMIT_ID=$(git rev-parse --short HEAD)
+        IMAGE_NAME_FOR_TAG="${{ secrets.DOCKER_USERNAME }}/$IMAGE_NAME"
+        DEPLOYMENT_FILE="deployment.yaml"
+        yq eval ".spec.template.spec.containers[0].image = \"$IMAGE_NAME_FOR_TAG:$COMMIT_ID\"" -i "$DEPLOYMENT_FILE"
+        echo "Image name updated to $NEW_IMAGE_NAME in $DEPLOYMENT_FILE"
+
+
+    - name: Commit and Push Changes
+      run: |
+        git config --local user.email "${{ secrets.EMAIL }}"
+        git config --local user.name "prashant-hariharan"
+        git add path/to/deployment.yaml
+        git commit -m "Update image version to $(git rev-parse --short HEAD)"
+        git push
     
