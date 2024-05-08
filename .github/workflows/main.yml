@@ -49,6 +49,10 @@ jobs:
         ref: main
         path: dev/deployment.yaml
         
+    - name: Print folder Structure
+      run: ls -R
+     
+        
     - name: Install yq
       run: |
         wget https://github.com/mikefarah/yq/releases/download/v4.13.3/yq_linux_amd64.tar.gz -O /tmp/yq.tar.gz
@@ -61,7 +65,7 @@ jobs:
         IMAGE_NAME="eks-demo" 
         COMMIT_ID=$(git rev-parse --short HEAD)
         IMAGE_NAME_FOR_TAG="${{ secrets.DOCKER_USERNAME }}/$IMAGE_NAME"
-        DEPLOYMENT_FILE="dev/deployment.yaml"
+        DEPLOYMENT_FILE="eks-argocd/dev/deployment.yaml"
         yq eval ".spec.template.spec.containers[0].image = \"$IMAGE_NAME_FOR_TAG:$COMMIT_ID\"" -i "$DEPLOYMENT_FILE"
         echo "Image name updated to $NEW_IMAGE_NAME in $DEPLOYMENT_FILE"
 
