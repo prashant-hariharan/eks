@@ -72,8 +72,8 @@ jobs:
 
     - name: Commit and Push Changes
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
+        git config --local user.email "${{ secrets.EMAIL }}"
+        git config --local user.name "prashant-hariharan"
         cd eks-argocd
         COMMIT_ID=$(git rev-parse --short HEAD)
         git add ./dev/deployment.yaml
