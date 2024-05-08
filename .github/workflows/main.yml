@@ -42,6 +42,7 @@ jobs:
         repository: prashant-hariharan/eks-argocd
         ref: main
         path: eks-argocd
+        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         
     #- name: Print folder Structure
       #run: ls -R
