@@ -27,6 +27,9 @@ target/
 /.nb-gradle/
 build/
 !**/src/main/**/build/
+
+
+*.prashant
 !**/src/test/**/build/
 
 ### VS Code ###
